@@ -1,36 +1,53 @@
-<html>
-  <head>
-    <title>Really really amazingly cool game</title>
-    <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
-        <script src="gamelab-api.js"></script>
-    <link href="gamelab.css" rel="stylesheet" type="text/css">
-    <script src="p5.js"></script>
-    <script src="p5.play.js"></script>
-    <script src="code.js"></script>
-    <style>
-      body.expo {
-        background-color: black;
-      }
-      #sketch.expo.no-controls {
-        top: 82px;
-      }
-    </style>
-  </head>
-  <body class="web" style="margin:0; overflow:hidden; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; position:fixed; top:0; left:0; width:400px; height:565px;">
-    <div id="sketch" class="web" style="position:absolute;"></div>
-    <div id="soft-buttons" style="display: none">
-      <button id="leftButton" disabled className="arrow">
-      </button>
-      <button id="rightButton" disabled className="arrow">
-      </button>
-      <button id="upButton" disabled className="arrow">
-      </button>
-      <button id="downButton" disabled className="arrow">
-      </button>
-    </div>
-    <div id="studio-dpad-container" style="display: none">
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Really really amazingly cool game</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+
+    .iframe-wrapper {
+      width: 820px;
+      height: 775px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #gameFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transform: scale(2) translateX(-20px);
+      transform-origin: top left;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="iframe-wrapper">
+    <iframe
+      id="gameFrame"
+      src=""
+      scrolling="no"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <script>
+  	alert("When you see a white screen click to start the game");
+    const gameURL = "https://studio.code.org/projects/gamelab/1iwc1Ltab-FiUDabBtgHni8NcQ5o0s0Akz_6DyqsJ04/embed";
+    document.getElementById('gameFrame').src = gameURL;
+  </script>
+</body>
 </html>
