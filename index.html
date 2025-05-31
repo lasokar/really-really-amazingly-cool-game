@@ -33,6 +33,7 @@
       transform-origin: top left;
       opacity: 0;
       pointer-events: none;
+      user-select: none;
       position: absolute;
       top: 0;
       left: 0;
@@ -45,8 +46,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
-      font-size: 24px;
-      font-family: Arial, sans-serif;
+      font-size: 50px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       user-select: none;
       opacity: 0;
       z-index: 1;
@@ -66,8 +67,8 @@
       align-items: center;
       justify-content: center;
       color: white;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-size: 20px;
       text-align: center;
     }
 
@@ -133,6 +134,7 @@
 
       if (elapsed >= duration) {
         spinner.style.display = 'none';
+        iframe.style.pointerEvents = 'auto';
         clickText.style.opacity = '1';
       } else {
         setTimeout(updateLoading, 50 + Math.random() * 100);
@@ -144,7 +146,6 @@
     window.addEventListener('blur', () => {
       if (document.activeElement === iframe) {
         iframe.style.opacity = '1';
-        iframe.style.pointerEvents = 'auto';
         clickText.style.opacity = '0';
       }
     });
