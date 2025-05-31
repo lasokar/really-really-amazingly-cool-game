@@ -59,14 +59,26 @@
       position: absolute;
       top: 50%;
       left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .loader {
       width: 40px;
       height: 40px;
-      margin: -20px 0 0 -20px;
       border: 4px solid rgba(255, 255, 255, 0.3);
       border-top-color: red;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      z-index: 3;
+      margin-bottom: 8px;
     }
 
     @keyframes spin {
@@ -82,7 +94,12 @@
       scrolling="no"
       allowfullscreen
     ></iframe>
-    <div id="spinner"></div>
+
+    <div id="spinner">
+      <div class="loader"></div>
+      <div id="loadingText">Loading... 0%</div>
+    </div>
+
     <div id="clickText">Click to start!</div>
   </div>
 
@@ -90,15 +107,45 @@
     const iframe = document.getElementById('gameFrame');
     const clickText = document.getElementById('clickText');
     const spinner = document.getElementById('spinner');
+    const loadingText = document.getElementById('loadingText');
 
-    setTimeout(() => {
-      spinner.style.display = 'none';
-      clickText.style.opacity = '1';
-    }, 2000);
+    const duration = 5000;
+    const startTime = Date.now();
+    let lastPercent = 0;
+
+    function updateLoading() {
+      const now = Date.now();
+      const elapsed = now - startTime;
+
+      if (Math.random() < 0.2) {
+        setTimeout(updateLoading, 50 + Math.random() * 150);
+        return;
+      }
+
+      const rawPercent = Math.floor((elapsed / duration) * 100);
+      const jitter = Math.random() < 0.3 ? Math.floor(Math.random() * 3) - 1 : 0;
+      const percent = Math.min(100, Math.max(lastPercent, rawPercent + jitter));
+
+      if (percent > lastPercent) {
+        lastPercent = percent;
+        loadingText.textContent = `Loading really really amazingly cool assets... ${percent}%`;
+      }
+
+      if (elapsed >= duration) {
+        spinner.style.display = 'none';
+        clickText.style.opacity = '1';
+      } else {
+        setTimeout(updateLoading, 50 + Math.random() * 100);
+      }
+    }
+
+    updateLoading();
 
     window.addEventListener('blur', () => {
-      iframe.style.opacity = '1';
-      clickText.style.opacity = '0';
+      if (document.activeElement === iframe) {
+        iframe.style.opacity = '1';
+        clickText.style.opacity = '0';
+      }
     });
   </script>
 </body>
