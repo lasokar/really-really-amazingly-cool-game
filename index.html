@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Really Really Amazingly Cool Game</title>
-  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png" />
   <style>
     html, body {
       margin: 0;
@@ -31,7 +31,46 @@
       border: none;
       transform: scale(2) translateX(-20px);
       transform-origin: top left;
+      opacity: 0;
       pointer-events: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    #clickText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+      user-select: none;
+      opacity: 0;
+      z-index: 1;
+      text-align: center;
+      text-shadow: 0 0 5px black;
+      transition: opacity 0.3s ease;
+    }
+
+    #spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: red;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 3;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -39,16 +78,28 @@
   <div class="iframe-wrapper">
     <iframe
       id="gameFrame"
-      src=""
+      src="https://studio.code.org/projects/gamelab/1iwc1Ltab-FiUDabBtgHni8NcQ5o0s0Akz_6DyqsJ04/embed"
       scrolling="no"
       allowfullscreen
     ></iframe>
+    <div id="spinner"></div>
+    <div id="clickText">Click to start!</div>
   </div>
 
   <script>
-  	alert("When you see a white screen click to start the game");
-    const gameURL = "https://studio.code.org/projects/gamelab/1iwc1Ltab-FiUDabBtgHni8NcQ5o0s0Akz_6DyqsJ04/embed";
-    document.getElementById('gameFrame').src = gameURL;
+    const iframe = document.getElementById('gameFrame');
+    const clickText = document.getElementById('clickText');
+    const spinner = document.getElementById('spinner');
+
+    setTimeout(() => {
+      spinner.style.display = 'none';
+      clickText.style.opacity = '1';
+    }, 2000);
+
+    window.addEventListener('blur', () => {
+      iframe.style.opacity = '1';
+      clickText.style.opacity = '0';
+    });
   </script>
 </body>
 </html>
